@@ -16,7 +16,7 @@ COLUMNWIDTH = 60
 COLUMNHEIGHT = 300
 BLANK = 60 
 DISTANCE = 200
-COLUMNSPEED = 2
+COLUMNSPEED = 1
 COLUMNIMG = pygame.image.load('img/column.png')
 
 
@@ -25,7 +25,7 @@ class Bird():
         
         self.width = BIRDWIDTH
         self.height = BIRDHEIGHT
-        self.x = (WINDOWWIDTH - self.width)/2
+        self.x = (WINDOWWIDTH - self.width)/4
         self.y = (WINDOWHEIGHT- self.height)/2
         self.speed = 0
         self.suface = BIRDIMG
@@ -50,14 +50,30 @@ class Column():
         self.surface = COLUMNIMG
         self.ls = []
         for i in range(3):
-            x = i*self.distance
-            y = random.randrange(60, WINDOWHEIGHT - 60 - self.blank, 20 )
+            x = WINDOWWIDTH + i*self.distance
+            # x = i*self.distance
+            #y = random.randrange(60, WINDOWHEIGHT - 60 - self.blank, 20 )
+            y = 80
             self.ls.append([x,y])
         
     def draw(self):
         for i in range(3): 
             DISPLAYSURF.blit(self.surface, (int(self.ls[i][0]), int(self.ls[i][1]) - self.height))
             DISPLAYSURF.blit(self.surface, (int(self.ls[i][0]), int(self.ls[i][1]) + self.height))
+
+    def update(self):
+        for i in range(3): 
+            self.ls[i][0] -= self.speed
+        #if self.ls[0][0] < 0
+        if self.ls[0][0] < -self.width:
+            self.ls.pop(0)
+            x = self.ls[1][0] + self.distance
+            y = 80
+            self.ls.append([x,y])
+
+        
+           
+
             
 
 pygame.init()
@@ -83,6 +99,7 @@ def main():
         bird.draw()
         column.draw()
         bird.update(mouseClick)
+        column.update()
 
         pygame.display.update()
         fpsClock.tick(FPS)
