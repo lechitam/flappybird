@@ -6,15 +6,15 @@ WINDOWWIDTH = 350
 WINDOWHEIGHT = 600
 BACKGROUND = pygame.image.load('img/background.png')
 
-BIRDWIDTH = 20
-BIRDHEIGHT = 20
+BIRDWIDTH = 40
+BIRDHEIGHT = 40
 G = 0.1
 SPEEDFLY = -2
 BIRDIMG = pygame.image.load('img/bird.png')
 
 COLUMNWIDTH = 60
 COLUMNHEIGHT = 500
-BLANK = 80 
+BLANK = 100 
 DISTANCE = 200
 COLUMNSPEED = 1
 COLUMNIMG = pygame.image.load('img/column.png')
@@ -68,8 +68,8 @@ class Column():
         for i in range(3):
             x = WINDOWWIDTH + i*self.distance
             # x = i*self.distance
-            y = random.randrange(60, WINDOWHEIGHT - 60 - self.blank, 20 )
-            #y = 100
+            # y = random.randrange(60, WINDOWHEIGHT - 60 - self.blank, 20 )
+            y = 300
             self.ls.append([x,y])
         
     def draw(self):
@@ -86,7 +86,7 @@ class Column():
         if self.ls[0][0] < -self.width:
             self.ls.pop(0)
             x = self.ls[1][0] + self.distance
-            y = 80
+            y = 300
             self.ls.append([x,y])
 
 class Score():
